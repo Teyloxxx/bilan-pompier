@@ -571,60 +571,120 @@
 
 
 
-    <!-- =====================================================
-         INVENTAIRE
-    ====================================================== -->
+ <!-- =====================================================
+     ACR / RCP
+====================================================== -->
 
-    <section
-        id="pageInventaire"
-        class="page hidden"
-    >
+<section
+    id="pageACR"
+    class="page hidden"
+>
 
-        <div class="page-title">
+    <div class="page-title">
 
-            <button
-                type="button"
-                class="back-btn"
-                onclick="retourAccueil()"
-            >
-                ‹
-            </button>
+        <button
+            type="button"
+            class="back-btn"
+            onclick="retourAccueil()"
+        >
+            ‹
+        </button>
 
-            <div>
+        <div>
 
-                <span class="section-label">
-                    VSAV
-                </span>
+            <span class="section-label">
+                RÉANIMATION
+            </span>
 
-                <h2>Matériel</h2>
-
-                <p>
-                    Suivi de l'inventaire du véhicule.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="info-banner">
-
-            <div>ℹ️</div>
+            <h2>❤️ ACR / RCP</h2>
 
             <p>
-                Coche les éléments contrôlés et indique les quantités
-                lorsque nécessaire. Les données sont enregistrées
-                localement.
+                Compteur de cycles de RCP et de chocs DAE.
             </p>
 
         </div>
 
-
-        <div id="inventaireContainer"></div>
-
-    </section>
+    </div>
 
 
+    <div class="content-card">
+
+        <div class="acr-counter">
+
+            <span>
+                CYCLES DE RCP
+            </span>
+
+            <strong id="acrCycles">
+                0
+            </strong>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="btnACRCycle"
+            class="btn-primary"
+            onclick="ajouterCycleRCP()"
+        >
+            ➕ 1 CYCLE
+        </button>
+
+
+        <div class="acr-counter">
+
+            <span>
+                CHOCS DAE
+            </span>
+
+            <strong id="acrChocs">
+                0
+            </strong>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="btnACRChoc"
+            class="btn-primary"
+            onclick="ajouterChocACR()"
+        >
+            ⚡ + 1 CHOC
+        </button>
+
+
+        <div
+            id="acrResultat"
+            class="hidden"
+        ></div>
+
+
+        <div class="button-row">
+
+            <button
+                type="button"
+                id="btnACRPouls"
+                class="btn-secondary"
+                onclick="reprisePouls()"
+            >
+                ❤️ Reprise de pouls
+            </button>
+
+            <button
+                type="button"
+                class="btn-secondary"
+                onclick="nouvelleACR()"
+            >
+                🔄 Nouvelle ACR
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
 
     <!-- =====================================================
          MES BILANS
