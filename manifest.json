@@ -1,0 +1,20 @@
+{
+  "name": "Bilan Pompier",
+  "short_name": "Bilan Pompier",
+  "description": "Application de bilan SUAP - Pusignan",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#202328",
+  "theme_color": "#c8102e",
+  "lang": "fr-FR",
+  "icons": [
+    {
+      "src": "ecusson-pusignan.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

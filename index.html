@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#c8102e"
+    >
+
+    <meta
+        name="description"
+        content="Application de bilan SUAP — Pusignan"
+    >
+
+    <link rel="manifest" href="manifest.json">
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="ecusson-pusignan.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="ecusson-pusignan.png"
+    >
+
+    <title>Bilan Pompier — Pusignan</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-red"></div>
+
+    <div class="header-content">
+
+        <div class="logo-container">
+            <img
+                src="ecusson-pusignan.png"
+                alt="Écusson Pusignan"
+                class="ecusson"
+            >
+        </div>
+
+        <div class="brand">
+            <h1>BILAN POMPIER</h1>
+            <span>SUAP — PUSIGNAN</span>
+        </div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            APPLICATION ACTIVE
+        </div>
+
+    </div>
+
+</header>
+
+
+<main>
+
+
+    <!-- =====================================================
+         PROFIL PREMIÈRE CONNEXION
+    ====================================================== -->
+
+    <section
+        id="pageProfil"
+        class="page hidden"
+    >
+
+        <div class="page-title">
+            <div>
+                <span class="section-label">
+                    PREMIÈRE CONNEXION
+                </span>
+
+                <h2>Créer ton profil</h2>
+
+                <p>
+                    Ces informations seront enregistrées uniquement
+                    sur cet appareil.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="content-card">
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="profilPrenom">
+                        PRÉNOM
+                    </label>
+
+                    <input
+                        id="profilPrenom"
+                        type="text"
+                        placeholder="Ton prénom"
+                        autocomplete="given-name"
+                    >
+                </div>
+
+
+                <div class="field">
+                    <label for="profilNom">
+                        NOM
+                    </label>
+
+                    <input
+                        id="profilNom"
+                        type="text"
+                        placeholder="Ton nom"
+                        autocomplete="family-name"
+                    >
+                </div>
+
+
+                <div class="field full">
+                    <label for="profilGrade">
+                        GRADE
+                    </label>
+
+                    <select id="profilGrade">
+
+                        <option value="">
+                            Sélectionner un grade
+                        </option>
+
+                        <option>Sapeur</option>
+                        <option>Caporal</option>
+                        <option>Caporal-chef</option>
+                        <option>Sergent</option>
+                        <option>Sergent-chef</option>
+                        <option>Adjudant</option>
+                        <option>Adjudant-chef</option>
+                        <option>Major</option>
+                        <option>Lieutenant</option>
+                        <option>Capitaine</option>
+                        <option>Commandant</option>
+                        <option>Lieutenant-colonel</option>
+                        <option>Colonel</option>
+
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    type="button"
+                    class="btn-primary"
+                    onclick="enregistrerProfil()"
+                >
+                    Enregistrer mon profil
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ACCUEIL
+    ====================================================== -->
+
+    <section
+        id="pageAccueil"
+        class="page hidden"
+    >
+
+        <div class="home-head">
+
+            <div>
+                <span class="section-label">
+                    TABLEAU DE BORD
+                </span>
+
+                <h2 id="bonjour">
+                    Bonjour
+                </h2>
+
+                <p>
+                    Prêt pour une nouvelle intervention ?
+                </p>
+            </div>
+
+
+            <button
+                type="button"
+                class="profile-mini"
+                onclick="ouvrirProfil()"
+            >
+
+                <span class="profile-avatar">
+                    👤
+                </span>
+
+                <span>
+                    <strong id="nomProfilAccueil">
+                        Profil
+                    </strong>
+
+                    <small id="gradeProfilAccueil">
+                        Grade
+                    </small>
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="main-bilan-card"
+            onclick="nouveauBilan()"
+        >
+
+            <div class="main-bilan-icon">
+                🚑
+            </div>
+
+            <div>
+
+                <span>
+                    INTERVENTION
+                </span>
+
+                <strong>
+                    Nouveau bilan
+                </strong>
+
+                <small>
+                    Créer un bilan SUAP complet
+                </small>
+
+            </div>
+
+            <div class="arrow">
+                →
+            </div>
+
+        </button>
+
+
+        <div class="home-grid">
+
+            <button
+                type="button"
+                class="home-card"
+                onclick="voirBilans()"
+            >
+
+                <div class="home-card-icon">
+                    📋
+                </div>
+
+                <strong>
+                    Mes bilans
+                </strong>
+
+                <span>
+                    Consulter les bilans enregistrés
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="home-card"
+                onclick="ouvrirFiches()"
+            >
+
+                <div class="home-card-icon">
+                    📚
+                </div>
+
+                <strong>
+                    Fiches SUAP
+                </strong>
+
+                <span>
+                    Fiches de révision et rappels
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="home-card"
+                onclick="ouvrirInventaire()"
+            >
+
+                <div class="home-card-icon">
+                    🧰
+                </div>
+
+                <strong>
+                    Matériel VSAV
+                </strong>
+
+                <span>
+                    Vérifier et suivre la dotation
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <div class="info-banner">
+
+            <div>
+                ℹ️
+            </div>
+
+            <p>
+                Les informations saisies dans l'application sont
+                enregistrées localement sur cet appareil.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MODIFICATION PROFIL
+    ====================================================== -->
+
+    <section
+        id="pageProfilEdit"
+        class="page hidden"
+    >
+
+        <div class="page-title">
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="retourAccueil()"
+            >
+                ‹
+            </button>
+
+            <div>
+
+                <span class="section-label">
+                    PROFIL
+                </span>
+
+                <h2>Mon profil</h2>
+
+                <p>
+                    Modifier tes informations.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="content-card">
+
+            <div class="form-grid">
+
+                <div class="field">
+
+                    <label for="editPrenom">
+                        PRÉNOM
+                    </label>
+
+                    <input
+                        id="editPrenom"
+                        type="text"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="editNom">
+                        NOM
+                    </label>
+
+                    <input
+                        id="editNom"
+                        type="text"
+                    >
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label for="editGrade">
+                        GRADE
+                    </label>
+
+                    <select id="editGrade">
+
+                        <option value="">
+                            Sélectionner un grade
+                        </option>
+
+                        <option>Sapeur</option>
+                        <option>Caporal</option>
+                        <option>Caporal-chef</option>
+                        <option>Sergent</option>
+                        <option>Sergent-chef</option>
+                        <option>Adjudant</option>
+                        <option>Adjudant-chef</option>
+                        <option>Major</option>
+                        <option>Lieutenant</option>
+                        <option>Capitaine</option>
+                        <option>Commandant</option>
+                        <option>Lieutenant-colonel</option>
+                        <option>Colonel</option>
+                        <option>Administrateur</option>
+
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    type="button"
+                    class="btn-primary"
+                    onclick="modifierProfil()"
+                >
+                    Enregistrer
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-secondary"
+                    onclick="retourAccueil()"
+                >
+                    Annuler
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FICHES SUAP
+    ====================================================== -->
+
+    <section
+        id="pageFiches"
+        class="page hidden"
+    >
+
+        <div class="page-title">
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="retourAccueil()"
+            >
+                ‹
+            </button>
+
+            <div>
+
+                <span class="section-label">
+                    RÉVISION
+                </span>
+
+                <h2>Fiches SUAP</h2>
+
+                <p>
+                    Rappels utiles pour le bilan et la prise en charge.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="fiche-warning">
+
+            <div>⚠️</div>
+
+            <p>
+                Ces fiches sont des supports de révision. En intervention,
+                appliquer les formations et procédures opérationnelles
+                en vigueur.
+            </p>
+
+        </div>
+
+
+        <div
+            id="listeFiches"
+            class="fiches-grid"
+        ></div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DÉTAIL FICHE
+    ====================================================== -->
+
+    <section
+        id="pageFicheDetail"
+        class="page hidden"
+    >
+
+        <div class="page-title">
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="retourFiches()"
+            >
+                ‹
+            </button>
+
+            <div>
+
+                <span class="section-label">
+                    FICHE SUAP
+                </span>
+
+                <h2 id="ficheDetailTitre">
+                    Fiche
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div id="ficheDetailContenu"></div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         INVENTAIRE
+    ====================================================== -->
+
+    <section
+        id="pageInventaire"
+        class="page hidden"
+    >
+
+        <div class="page-title">
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="retourAccueil()"
+            >
+                ‹
+            </button>
+
+            <div>
+
+                <span class="section-label">
+                    VSAV
+                </span>
+
+                <h2>Matériel</h2>
+
+                <p>
+                    Suivi de l'inventaire du véhicule.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-banner">
+
+            <div>ℹ️</div>
+
+            <p>
+                Coche les éléments contrôlés et indique les quantités
+                lorsque nécessaire. Les données sont enregistrées
+                localement.
+            </p>
+
+        </div>
+
+
+        <div id="inventaireContainer"></div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MES BILANS
+    ====================================================== -->
+
+    <section
+        id="pageBilans"
+        class="page hidden"
+    >
+
+        <div class="page-title">
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="retourAccueil()"
+            >
+                ‹
+            </button>
+
+            <div>
+
+                <span class="section-label">
+                    HISTORIQUE
+                </span>
+
+                <h2>Mes bilans</h2>
+
+                <p>
+                    Bilans enregistrés sur cet appareil.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="listeBilans"></div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         NOUVEAU BILAN
+    ====================================================== -->
+
+    <section
+        id="pageBilan"
+        class="page hidden"
+    >
+
+        <div class="bilan-header">
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="retourAccueil()"
+            >
+                ‹
+            </button>
+
+            <div>
+
+                <span class="section-label">
+                    SUAP
+                </span>
+
+                <h2>Nouveau bilan</h2>
+
+                <p>
+                    Complète les différentes étapes du bilan.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION ÉTAPES -->
+
+        <div class="steps">
+
+            <button
+                type="button"
+                class="step active"
+                onclick="allerEtape(1)"
+            >
+                1
+            </button>
+
+            <button
+                type="button"
+                class="step"
+                onclick="allerEtape(2)"
+            >
+                2
+            </button>
+
+            <button
+                type="button"
+                class="step"
+                onclick="allerEtape(3)"
+            >
+                3
+            </button>
+
+            <button
+                type="button"
+                class="step"
+                onclick="allerEtape(4)"
+            >
+                4
+            </button>
+
+            <button
+                type="button"
+                class="step"
+                onclick="allerEtape(5)"
+            >
+                5
+            </button>
+
+            <button
+                type="button"
+                class="step"
+                onclick="allerEtape(6)"
+            >
+                6
+            </button>
+
+            <button
+                type="button"
+                class="step"
+                onclick="allerEtape(7)"
+            >
+                7
+            </button>
+
+            <button
+                type="button"
+                class="step"
+                onclick="allerEtape(8)"
+            >
+                8
+            </button>
+
+            <button
+                type="button"
+                class="step"
+                onclick="allerEtape(9)"
+            >
+                9
+            </button>
+
+        </div>
+
+
+
+        <!-- ÉTAPE 1 -->
+
+        <div
+            class="bilan-step active"
+            data-step="1"
+        >
+
+            <div class="section-card">
+
+                <h3>🚑 Intervention</h3>
+
+                <div class="form-grid">
+
+                    <div class="field">
+
+                        <label for="dateIntervention">
+                            DATE
+                        </label>
+
+                        <input
+                            id="dateIntervention"
+                            type="date"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="heureIntervention">
+                            HEURE
+                        </label>
+
+                        <input
+                            id="heureIntervention"
+                            type="time"
+                        >
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label for="lieu">
+                            LIEU
+                        </label>
+
+                        <input
+                            id="lieu"
+                            type="text"
+                            placeholder="Adresse / lieu de l'intervention"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="typeIntervention">
+                            TYPE D'INTERVENTION
+                        </label>
+
+                        <select id="typeIntervention">
+
+                            <option value="">
+                                Sélectionner
+                            </option>
+
+                            <option>Malaise</option>
+                            <option>Traumatisme</option>
+                            <option>Accident de circulation</option>
+                            <option>Chute</option>
+                            <option>Douleur</option>
+                            <option>Hémorragie</option>
+                            <option>Détresse respiratoire</option>
+                            <option>Arrêt cardiaque</option>
+                            <option>Intoxication</option>
+                            <option>Brûlure</option>
+                            <option>Autre</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="nombreVictimes">
+                            NOMBRE DE VICTIMES
+                        </label>
+
+                        <input
+                            id="nombreVictimes"
+                            type="number"
+                            min="1"
+                            value="1"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ÉTAPE 2 -->
+
+        <div
+            class="bilan-step"
+            data-step="2"
+        >
+
+            <div class="section-card">
+
+                <h3>👤 Victime</h3>
+
+                <div class="form-grid">
+
+                    <div class="field">
+
+                        <label for="victimeNom">
+                            NOM
+                        </label>
+
+                        <input
+                            id="victimeNom"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="victimePrenom">
+                            PRÉNOM
+                        </label>
+
+                        <input
+                            id="victimePrenom"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="victimeAge">
+                            ÂGE
+                        </label>
+
+                        <input
+                            id="victimeAge"
+                            type="number"
+                            min="0"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="victimeSexe">
+                            SEXE
+                        </label>
+
+                        <select id="victimeSexe">
+
+                            <option value="">
+                                Sélectionner
+                            </option>
+
+                            <option>Femme</option>
+                            <option>Homme</option>
+                            <option>Autre / non précisé</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label for="motif">
+                            MOTIF DE PRISE EN CHARGE
+                        </label>
+
+                        <textarea
+                            id="motif"
+                            placeholder="Motif / plainte principale"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ÉTAPE 3 -->
+
+        <div
+            class="bilan-step"
+            data-step="3"
+        >
+
+            <div class="section-card">
+
+                <h3>🩺 Bilan primaire</h3>
+
+                <div class="form-grid">
+
+                    <div class="field">
+
+                        <label for="conscience">
+                            CONSCIENCE
+                        </label>
+
+                        <select id="conscience">
+
+                            <option value="">
+                                Sélectionner
+                            </option>
+
+                            <option>Consciente</option>
+                            <option>Altérée</option>
+                            <option>Inconsciente</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="respiration">
+                            RESPIRATION
+                        </label>
+
+                        <select id="respiration">
+
+                            <option value="">
+                                Sélectionner
+                            </option>
+
+                            <option>Normale</option>
+                            <option>Anormale</option>
+                            <option>Absente</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="circulation">
+                            CIRCULATION
+                        </label>
+
+                        <select id="circulation">
+
+                            <option value="">
+                                Sélectionner
+                            </option>
+
+                            <option>Présente</option>
+                            <option>Anormale</option>
+                            <option>Absente</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="hemorragie">
+                            HÉMORRAGIE
+                        </label>
+
+                        <select id="hemorragie">
+
+                            <option value="">
+                                Sélectionner
+                            </option>
+
+                            <option>Absente</option>
+                            <option>Présente</option>
+                            <option>Importante</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label for="observationsPrimaires">
+                            OBSERVATIONS
+                        </label>
+
+                        <textarea
+                            id="observationsPrimaires"
+                            placeholder="Observations du bilan primaire"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ÉTAPE 4 -->
+
+        <div
+            class="bilan-step"
+            data-step="4"
+        >
+
+            <div class="section-card">
+
+                <h3>❤️ Constantes</h3>
+
+                <div class="constants-grid">
+
+                    <div class="constant">
+
+                        <label for="fc">
+                            FC
+                        </label>
+
+                        <input
+                            id="fc"
+                            type="number"
+                            min="0"
+                            placeholder="bpm"
+                        >
+
+                        <small>
+                            battements/min
+                        </small>
+
+                    </div>
+
+
+                    <div class="constant">
+
+                        <label for="fr">
+                            FR
+                        </label>
+
+                        <input
+                            id="fr"
+                            type="number"
+                            min="0"
+                            placeholder="/min"
+                        >
+
+                        <small>
+                            respirations/min
+                        </small>
+
+                    </div>
+
+
+                    <div class="constant">
+
+                        <label for="spo2">
+                            SpO₂
+                        </label>
+
+                        <input
+                            id="spo2"
+                            type="number"
+                            min="0"
+                            max="100"
+                            placeholder="%"
+                        >
+
+                        <small>
+                            saturation
+                        </small>
+
+                    </div>
+
+
+                    <div class="constant">
+
+                        <label for="temperature">
+                            TEMPÉRATURE
+                        </label>
+
+                        <input
+                            id="temperature"
+                            type="number"
+                            step="0.1"
+                            placeholder="°C"
+                        >
+
+                        <small>
+                            température
+                        </small>
+
+                    </div>
+
+
+                    <div class="constant">
+
+                        <label for="ta">
+                            TA
+                        </label>
+
+                        <input
+                            id="ta"
+                            type="text"
+                            placeholder="ex. 120/80"
+                        >
+
+                        <small>
+                            mmHg
+                        </small>
+
+                    </div>
+
+
+                    <div class="constant">
+
+                        <label for="douleur">
+                            DOULEUR
+                        </label>
+
+                        <input
+                            id="douleur"
+                            type="number"
+                            min="0"
+                            max="10"
+                            placeholder="/10"
+                        >
+
+                        <small>
+                            échelle 0 à 10
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ÉTAPE 5 -->
+
+        <div
+            class="bilan-step"
+            data-step="5"
+        >
+
+            <div class="section-card">
+
+                <h3>😖 OPQRST</h3>
+
+                <div class="opqrst-grid">
+
+                    <div class="field">
+
+                        <label for="opqrstO">
+                            O — ONSET
+                        </label>
+
+                        <input
+                            id="opqrstO"
+                            type="text"
+                            placeholder="Début"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="opqrstP">
+                            P — PROVOCATION / PALLIATION
+                        </label>
+
+                        <input
+                            id="opqrstP"
+                            type="text"
+                            placeholder="Déclenche / soulage"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="opqrstQ">
+                            Q — QUALITY
+                        </label>
+
+                        <input
+                            id="opqrstQ"
+                            type="text"
+                            placeholder="Type de douleur"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="opqrstR">
+                            R — REGION / RADIATION
+                        </label>
+
+                        <input
+                            id="opqrstR"
+                            type="text"
+                            placeholder="Localisation / irradiation"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="opqrstS">
+                            S — SEVERITY
+                        </label>
+
+                        <input
+                            id="opqrstS"
+                            type="text"
+                            placeholder="Intensité"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="opqrstT">
+                            T — TIME
+                        </label>
+
+                        <input
+                            id="opqrstT"
+                            type="text"
+                            placeholder="Durée / évolution"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ÉTAPE 6 -->
+
+        <div
+            class="bilan-step"
+            data-step="6"
+        >
+
+            <div class="section-card">
+
+                <h3>📋 SAMPLE</h3>
+
+                <div class="form-grid">
+
+                    <div class="field full">
+
+                        <label for="sampleS">
+                            S — SIGNES / SYMPTÔMES
+                        </label>
+
+                        <textarea id="sampleS"></textarea>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="sampleA">
+                            A — ALLERGIES
+                        </label>
+
+                        <textarea id="sampleA"></textarea>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="sampleM">
+                            M — MALADIE
+                        </label>
+
+                        <textarea id="sampleM"></textarea>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="sampleP">
+                            P — PASSÉ MÉDICAL
+                        </label>
+
+                        <textarea id="sampleP"></textarea>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label for="sampleL">
+                            L — LAST MEAL
+                        </label>
+
+                        <textarea id="sampleL"></textarea>
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label for="sampleE">
+                            E — ÉVÉNEMENTS
+                        </label>
+
+                        <textarea id="sampleE"></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ÉTAPE 7 -->
+
+        <div
+            class="bilan-step"
+            data-step="7"
+        >
+
+            <div class="section-card">
+
+                <h3>🔎 Bilan secondaire</h3>
+
+                <div class="field">
+
+                    <label for="bilanSecondaire">
+                        EXAMEN / OBSERVATIONS
+                    </label>
+
+                    <textarea
+                        id="bilanSecondaire"
+                        placeholder="Examen secondaire, lésions, symptômes..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="autresObservations">
+                        AUTRES OBSERVATIONS
+                    </label>
+
+                    <textarea
+                        id="autresObservations"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ÉTAPE 8 -->
+
+        <div
+            class="bilan-step"
+            data-step="8"
+        >
+
+            <div class="section-card">
+
+                <h3>🩹 Gestes & surveillance</h3>
+
+                <div class="field">
+
+                    <label for="gestes">
+                        GESTES RÉALISÉS
+                    </label>
+
+                    <textarea
+                        id="gestes"
+                        placeholder="Gestes / actions réalisés"
+                    ></textarea>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="evolution">
+                        ÉVOLUTION
+                    </label>
+
+                    <textarea
+                        id="evolution"
+                        placeholder="Évolution de la victime"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ÉTAPE 9 -->
+
+        <div
+            class="bilan-step"
+            data-step="9"
+        >
+
+            <div class="section-card">
+
+                <h3>📡 Synthèse / transmission</h3>
+
+                <div class="field">
+
+                    <label for="synthese">
+                        BILAN SYNTHÉTIQUE
+                    </label>
+
+                    <textarea
+                        id="synthese"
+                        class="sample"
+                        placeholder="La synthèse sera générée ici..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="button-row">
+
+                    <button
+                        type="button"
+                        class="btn-primary"
+                        onclick="copierBilan()"
+                    >
+                        📋 Copier
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn-secondary"
+                        onclick="enregistrerBilan()"
+                    >
+                        💾 Enregistrer
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NAVIGATION -->
+
+        <div class="bilan-navigation">
+
+            <button
+                type="button"
+                id="btnPrev"
+                class="btn-secondary"
+                onclick="etapePrecedente()"
+            >
+                ← Précédent
+            </button>
+
+
+            <button
+                type="button"
+                id="btnNext"
+                class="btn-primary"
+                onclick="etapeSuivante()"
+            >
+                Suivant →
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    Bilan Pompier — Pusignan
+</footer>
+
+
+<script src="app.js"></script>
+
+
+<script>
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./sw.js")
+                .catch(error => {
+                    console.log(
+                        "Service Worker non disponible :",
+                        error
+                    );
+                });
+        });
+    }
+</script>
+
+</body>
+</html>
