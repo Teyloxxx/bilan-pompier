@@ -1,4 +1,4 @@
-const CACHE_NAME = "bilan-pompier-v1";
+const CACHE_NAME = "bilan-pompier-v2";
 
 const FILES_TO_CACHE = [
     "./",
