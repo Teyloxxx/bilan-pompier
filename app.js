@@ -892,96 +892,6 @@ const fichesSUAP = [
 
 
 /* =========================================================
-   INVENTAIRE
-========================================================= */
-
-const inventaire = {
-
-    "Immobilisation / transport": [
-        "Brancard",
-        "Chaise d'évacuation",
-        "Plan dur",
-        "Matelas immobilisateur",
-        "Attelles",
-        "Colliers cervicaux",
-        "Couvertures"
-    ],
-
-    "Oxygène / ventilation": [
-        "Bouteille O₂",
-        "Masques O₂",
-        "BAVU",
-        "Masques BAVU",
-        "Aspirateur",
-        "Matériel de ventilation"
-    ],
-
-    "Diagnostic / surveillance": [
-        "DAE",
-        "Tensiomètre",
-        "Oxymètre de pouls",
-        "Thermomètre",
-        "Stéthoscope",
-        "Matériel de mesure glycémique"
-    ],
-
-    "Pansements / hémorragies": [
-        "Compresses",
-        "Pansements",
-        "Bandes",
-        "Sparadrap",
-        "Garrots",
-        "Ciseaux"
-    ],
-
-    "Hygiène / protection": [
-        "Gants",
-        "Masques",
-        "Lunettes de protection",
-        "Solution hydroalcoolique",
-        "Sacs déchets"
-    ],
-
-    "Divers": [
-        "Lampe",
-        "Sac de matériel",
-        "Matériel de signalisation",
-        "Batteries / alimentation",
-        "Divers"
-    ]
-
-};
-
-
-/* =========================================================
-   VARIABLES
-========================================================= */
-
-let etapeActuelle = 1;
-let ficheActuelle = null;
-function ouvrirInventaire() {
-    afficherPage("pageInventaire");
-    afficherInventaire();
-}
-
-
-/* =========================================================
-   INITIALISATION
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    chargerProfil();
-
-    afficherFiches();
-    afficherInventaire();
-
-    initialiserDateHeure();
-
-});
-
-
-/* =========================================================
    NAVIGATION PAGES
 ========================================================= */
 
@@ -1237,6 +1147,145 @@ function afficherFiches() {
 
 }
 
+/* =========================================================
+   ACR / RCP — COMPTEUR
+========================================================= */
+
+let acrCycles = 0;
+let acrChocs = 0;
+let acrTerminee = false;
+
+
+function ouvrirACR() {
+
+    afficherPage("pageACR");
+
+    acrCycles = 0;
+    acrChocs = 0;
+    acrTerminee = false;
+
+    mettreAJourACR();
+
+}
+
+
+function ajouterCycleRCP() {
+
+    if (acrTerminee) return;
+
+    acrCycles++;
+
+    mettreAJourACR();
+
+}
+
+
+function ajouterChocACR() {
+
+    if (acrTerminee) return;
+
+    acrChocs++;
+
+    mettreAJourACR();
+
+}
+
+
+function reprisePouls() {
+
+    if (acrTerminee) return;
+
+    acrTerminee = true;
+
+    mettreAJourACR();
+
+    const resultat =
+        document.getElementById("acrResultat");
+
+    if (resultat) {
+
+        resultat.innerHTML = `
+            <strong>❤️ REPRISE DE POULS</strong>
+
+            <span>
+                Cycles de RCP : ${acrCycles}
+            </span>
+
+            <span>
+                Chocs délivrés : ${acrChocs}
+            </span>
+        `;
+
+        resultat.classList.remove("hidden");
+
+    }
+
+}
+
+
+function nouvelleACR() {
+
+    acrCycles = 0;
+    acrChocs = 0;
+    acrTerminee = false;
+
+    const resultat =
+        document.getElementById("acrResultat");
+
+    if (resultat) {
+
+        resultat.classList.add("hidden");
+
+        resultat.innerHTML = "";
+
+    }
+
+    mettreAJourACR();
+
+}
+
+
+function mettreAJourACR() {
+
+    const cycles =
+        document.getElementById("acrCycles");
+
+    const chocs =
+        document.getElementById("acrChocs");
+
+    const btnCycle =
+        document.getElementById("btnACRCycle");
+
+    const btnChoc =
+        document.getElementById("btnACRChoc");
+
+    const btnPouls =
+        document.getElementById("btnACRPouls");
+
+
+    if (cycles) {
+        cycles.textContent = acrCycles;
+    }
+
+    if (chocs) {
+        chocs.textContent = acrChocs;
+    }
+
+
+    if (btnCycle) {
+        btnCycle.disabled = acrTerminee;
+    }
+
+    if (btnChoc) {
+        btnChoc.disabled = acrTerminee;
+    }
+
+    if (btnPouls) {
+        btnPouls.disabled = acrTerminee;
+    }
+
+}
+
 
 function ouvrirFiche(id) {
 
@@ -1263,131 +1312,6 @@ function retourFiches() {
     afficherPage("pageFiches");
 
 }
-
-
-/* =========================================================
-   INVENTAIRE
-========================================================= */
-
-function afficherInventaire() {
-
-    const container =
-        document.getElementById("inventaireContainer");
-
-    if (!container) return;
-
-    const sauvegarde =
-        JSON.parse(
-            localStorage.getItem("inventaireVSAV") || "{}"
-        );
-
-    container.innerHTML = "";
-
-    Object.entries(inventaire).forEach(
-        ([categorie, items]) => {
-
-            const category =
-                document.createElement("div");
-
-            category.className =
-                "inventory-category";
-
-            const titre =
-                document.createElement("h3");
-
-            titre.textContent = categorie;
-
-            category.appendChild(titre);
-
-            items.forEach(item => {
-
-                const key =
-                    categorie + "_" + item;
-
-                const data =
-                    sauvegarde[key] || {
-                        checked: false,
-                        quantity: ""
-                    };
-
-                const row =
-                    document.createElement("div");
-
-                row.className =
-                    "inventory-item";
-
-                row.innerHTML = `
-                    <input
-                        type="checkbox"
-                        ${data.checked ? "checked" : ""}
-                        onchange="sauverInventaire()"
-                    >
-
-                    <span>${item}</span>
-
-                    <input
-                        class="inventory-quantity"
-                        type="number"
-                        min="0"
-                        placeholder="Qté"
-                        value="${data.quantity || ""}"
-                        onchange="sauverInventaire()"
-                    >
-                `;
-
-                row.dataset.key = key;
-
-                category.appendChild(row);
-
-            });
-
-            container.appendChild(category);
-
-        }
-    );
-
-}
-
-
-function sauverInventaire() {
-
-    const sauvegarde = {};
-
-    document.querySelectorAll(".inventory-item")
-        .forEach(row => {
-
-            const key = row.dataset.key;
-
-            const checkbox =
-                row.querySelector(
-                    'input[type="checkbox"]'
-                );
-
-            const quantity =
-                row.querySelector(
-                    ".inventory-quantity"
-                );
-
-            sauvegarde[key] = {
-
-                checked:
-                    checkbox.checked,
-
-                quantity:
-                    quantity.value
-
-            };
-
-        });
-
-    localStorage.setItem(
-        "inventaireVSAV",
-        JSON.stringify(sauvegarde)
-    );
-
-}
-
-
 /* =========================================================
    DATE / HEURE
 ========================================================= */
